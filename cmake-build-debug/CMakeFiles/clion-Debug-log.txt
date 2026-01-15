@@ -1,0 +1,17 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/meremikhina/Desktop/AutoLaba -B /Users/meremikhina/Desktop/AutoLaba/cmake-build-debug
+-- Configuring done (0.0s)
+CMake Error at CMakeLists.txt:11 (target_link_libraries):
+  Target "AutoLaba" links to:
+
+    glfw3::glfw
+
+  but the target was not found.  Possible reasons include:
+
+    * There is a typo in the target name.
+    * A find_package call is missing for an IMPORTED target.
+    * An ALIAS target is missing.
+
+
+
+-- Generating done (0.0s)
+CMake Generate step failed.  Build files cannot be regenerated correctly.

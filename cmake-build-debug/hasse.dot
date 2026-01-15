@@ -1,0 +1,19 @@
+digraph Hasse {
+  rankdir=BT;
+  node [shape=circle];
+  n0 [label="1"];
+  n1 [label="2"];
+  n2 [label="34"];
+  n3 [label="6"];
+  n4 [label="8"];
+  n5 [label="9"];
+  n6 [label="10"];
+  n7 [label="12"];
+  n0 -> n1;
+  n0 -> n5;
+  n1 -> n2;
+  n1 -> n3;
+  n1 -> n4;
+  n1 -> n6;
+  n3 -> n7;
+}
