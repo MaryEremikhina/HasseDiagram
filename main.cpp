@@ -30,7 +30,7 @@ struct Point2D {
     }
 };
 
-// Пользовательский тип: MyType (заготовка)
+// пользовательский тип: MyType (заготовка)
 struct MyType {
     // TODO: впиши сюда поля своего типа.
     // Примеры:
@@ -43,21 +43,21 @@ struct MyType {
     // 3) ToString для печати/вершин
 };
 
-// Эквивалентность
+// эквивалентность
 static bool operator==(const MyType& lhs, const MyType& rhs) { // MyTypeEquals
     // TODO: напиши сравнение
     // return lhs.a == rhs.a && lhs.name == rhs.name;
     return false;
 }
 
-// Перевод в строку
+// перевод в строку
 static std::string MyTypeToString(const MyType& v) {
     // TODO: сделай красивый вывод
     // return std::format("({}, {})", v.a, v.name);
     return "<MyType>";
 }
 
-// Парсер из строки
+// парсер из строки
 static MyType ParseMyType(const std::string& line) {
     // TODO: распарсить line -> MyType
     // Пример:
@@ -69,7 +69,7 @@ static MyType ParseMyType(const std::string& line) {
     throw std::runtime_error("ParseMyType is not implemented yet. Fill it in main.cpp");
 }
 
-// Частичный порядок (строгий): a < b ?
+// частичный порядок (строгий): a < b ?
 static bool MyTypeLessStrict(const MyType& a, const MyType& b) {
     // TODO: впиши правило "строго меньше"
     // Важно: строго меньше = НЕ равны.
@@ -78,6 +78,7 @@ static bool MyTypeLessStrict(const MyType& a, const MyType& b) {
     throw std::runtime_error("MyTypeLessStrict is not implemented yet. Fill it in main.cpp");
 }
 
+// парсеры для различных типов данных
 static int ParseInt(const std::string& line) {
     size_t pos = 0;
     int v = 0;
@@ -115,6 +116,7 @@ static Point2D ParsePoint2D(const std::string& line) {
     return p;
 }
 
+// правила
 static bool IsPrefixStrict(const std::string& a, const std::string& b) {
     if (a.size() >= b.size()) return false;
     return std::equal(a.begin(), a.end(), b.begin());
@@ -153,6 +155,7 @@ static std::string PointToString(const Point2D& p) {
     return out.str();
 }
 
+// мэйкеры 
 static std::unique_ptr<ITypeHandler> MakeIntHandler() {
     using H = SimpleTypeHandler<int>;
     std::vector<H::Rule> rules;
