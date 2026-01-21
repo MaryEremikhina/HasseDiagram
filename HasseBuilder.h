@@ -13,6 +13,7 @@
 
 class HasseBuilder {
 private:
+    // форматирование строки для файлов типа .dot 
     static std::string EscapeDot(const std::string& s) {
         std::string r;
         r.reserve(s.size());
@@ -26,6 +27,7 @@ private:
 public:
     using Edge = std::pair<int, int>;
 
+    // создание диаграммы и получение ребер на основе компаратора
     template<typename T>
     static std::vector<Edge> BuildHasseEdges(const std::vector<T>& elements, Comparator<T> comparator) {
         HasseDiagram<T> diagram(std::move(comparator));
@@ -33,13 +35,14 @@ public:
         diagram.Build();
         return diagram.GetEdges();
     }
-
+    // создание диаграммы и получение ребер на основе функции сравнения
     template<typename T, typename LessFunc>
     static std::vector<Edge> BuildHasseEdgesFromLess(const std::vector<T>& elements, LessFunc lessThan) {
         auto comparator = HasseComparators::FromPartialOrder<T>(lessThan);
         return BuildHasseEdges(elements, std::move(comparator));
     }
 
+    // распределение вершин по уровням
     static std::map<int, std::vector<int>> LevelIndex(const std::vector<Edge>& edges, int n) {
         std::vector<std::vector<int>> adj(n);
         std::vector<int> indeg(n, 0);
@@ -65,6 +68,7 @@ public:
         return result;
     }
 
+    // вывод информации о диаграмме в файл формата .dot
     template<typename T>
     static std::string ToDot(
         const std::vector<T>& elements,
