@@ -44,6 +44,7 @@ public:
         RunWithSource(src);
     }
 
+    // полный запуск системы с учетом вида считывания данных
     void RunWithSource(int src) override {
         std::vector<std::string> lines = (src == 1) ? ReadLinesConsoleUntilEmpty() : ReadLinesFromFile();
         std::vector<T> elements = ParseLines<T>(lines, parser_);
@@ -58,18 +59,6 @@ public:
         for (size_t i = 0; i < elements.size(); ++i) {
             std::cout << "  [" << i << "] " << toString_(elements[i]) << "\n";
         }
-
-        // if (rules_.empty()) throw std::runtime_error("No rules registered for type: " + typeName_);
-        //
-        // std::cout << "Choose rule for " << typeName_ << ":\n";
-        // for (size_t i = 0; i < rules_.size(); ++i) {
-        //     std::cout << "  " << (i + 1) << " - " << rules_[i].name << "\n";
-        // }
-        // std::cout << "> ";
-        // const int r = ReadMenuChoice(1, static_cast<int>(rules_.size()));
-        //
-        // Comparator<T> cmp = rules_[r - 1].makeComparator();
-        // auto edges = HasseBuilder::BuildHasseEdges(elements, std::move(cmp));
 
         std::cout << "Choose the way of making relation:\n1 - By rule\n2 - Making pairs\n> ";
         int scr;
@@ -91,7 +80,7 @@ public:
             std::cout << "Write every pair you need, ending with space:\n";
             std::string line;
             while (true) {
-                if (!std::getline(std::cin, line)) break; // EOF
+                if (!std::getline(std::cin, line)) break;
                 if (line == " ") break;
 
                 std::vector<T> words;
