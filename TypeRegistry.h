@@ -1,3 +1,4 @@
+// нужно, для умного вывода всех типов в консоли
 #pragma once
 #include <functional>
 #include <memory>
