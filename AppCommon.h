@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+// проверка на выбор типа
 inline int ReadMenuChoice(int minValue, int maxValue) {
     int x = 0;
     if (!(std::cin >> x)) throw std::runtime_error("Bad numeric input");
@@ -17,6 +18,7 @@ inline int ReadMenuChoice(int minValue, int maxValue) {
     return x;
 }
 
+// файл/консоль
 inline int ReadInputSource() {
     std::cout << "Input source:\n"
                  "1 - Console\n"
@@ -25,6 +27,7 @@ inline int ReadInputSource() {
     return ReadMenuChoice(1, 2);
 }
 
+// считывание элементов с консоли
 inline std::vector<std::string> ReadLinesConsoleUntilEmpty() {
     std::cout << "Enter elements, one per line. Empty line finishes.\n";
     std::vector<std::string> lines;
@@ -37,6 +40,7 @@ inline std::vector<std::string> ReadLinesConsoleUntilEmpty() {
     return lines;
 }
 
+// считывание элементов из файла
 inline std::vector<std::string> ReadLinesFromFile() {
     std::cout << "Enter file path: ";
     std::string path;
@@ -54,6 +58,7 @@ inline std::vector<std::string> ReadLinesFromFile() {
     return lines;
 }
 
+// обрезает пробельные символы в строке
 inline std::string Trim(const std::string& s) {
     size_t l = 0;
     while (l < s.size() && std::isspace(static_cast<unsigned char>(s[l]))) ++l;
@@ -62,6 +67,7 @@ inline std::string Trim(const std::string& s) {
     return s.substr(l, r - l);
 }
 
+// перевод из строки в T
 template<typename T, typename Parser>
 std::vector<T> ParseLines(const std::vector<std::string>& lines, Parser parser) {
     std::vector<T> out;
@@ -75,6 +81,7 @@ std::vector<T> ParseLines(const std::vector<std::string>& lines, Parser parser) 
     return out;
 }
 
+// удаление дубликатов
 template<typename T, typename Equals>
 std::vector<T> DeduplicateStable(const std::vector<T>& in, Equals eq, int& removed) {
     removed = 0;
