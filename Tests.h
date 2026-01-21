@@ -21,6 +21,7 @@
 
 namespace tests {
 
+// проверка директории для скриншотов
 inline std::string GraphBaseDir() {
     namespace fs = std::filesystem;
 
@@ -34,15 +35,16 @@ inline std::string GraphBaseDir() {
     return "Graph";
 }
 
+// multiple definition (для обработки этой ошибки, прописывание полного пути к файлу)
 inline std::string JoinPath(const std::string& dir, const std::string& name) {
     namespace fs = std::filesystem;
     return (fs::path(dir) / fs::path(name)).string();
 }
 
 
-// Проверка cover-инвариантов для Hasse-ребер
+// проверка cover-инвариантов для Hasse-ребер
 template<typename T>
-inline bool VerifyCovers(const std::vector<T>& elements,
+bool VerifyCovers(const std::vector<T>& elements,
                          const std::vector<HasseBuilder::Edge>& edges,
                          const std::function<bool(const T&, const T&)>& lessStrict,
                          std::string* outError = nullptr) {
@@ -74,7 +76,7 @@ inline bool VerifyCovers(const std::vector<T>& elements,
     return true;
 }
 
-// 2) правила
+// правила
 
 inline bool IntDividesStrict(int a, int b) {
     if (a == 0) return false;
@@ -123,7 +125,7 @@ inline std::string PointToString(const Point2D& p) {
     return out.str();
 }
 
-// 3) тесты
+// тесты
 struct TestCase {
     std::string name;
     std::function<bool(std::string* err)> run;
