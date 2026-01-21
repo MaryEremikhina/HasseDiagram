@@ -26,6 +26,7 @@ namespace detail {
     struct is_ostreamable<T, std::void_t<decltype(std::declval<std::ostream&>() << std::declval<const T&>())>>
         : std::true_type {};
 
+    // красивый вывод сета
     inline std::string join_int_vector(const std::vector<int>& v) {
         std::ostringstream out;
         out << "{";
@@ -37,6 +38,7 @@ namespace detail {
         return out.str();
     }
 
+    // дефолтная функция для перевода в строчку 
     template<typename T>
     std::string defaultToString(const T& val) {
         if constexpr (std::is_same_v<T, std::vector<int>>) {
@@ -51,6 +53,7 @@ namespace detail {
     }
 }
 
+// возвращает функцию для сравнения 
 namespace HasseComparators {
     template<typename T, typename LessFunc>
     Comparator<T> FromPartialOrder(LessFunc lessThan) {
@@ -75,6 +78,7 @@ public:
 
     void AddElements(const std::vector<T>& elements) { elements_ = elements; }
 
+    // функция для получения матрицы отношений элементов
     void Build() {
         const int n = static_cast<int>(elements_.size());
         edges_.clear();
