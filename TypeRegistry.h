@@ -1,5 +1,6 @@
 // нужно, для умного вывода всех типов в консоли
-#pragma once
+#ifndef AUTOLABA_TYPEREGISTRY_H
+#define AUTOLABA_TYPEREGISTRY_H
 #include <functional>
 #include <memory>
 #include <string>
@@ -10,3 +11,4 @@ struct TypeEntry {
     std::string name;
     std::function<std::unique_ptr<ITypeHandler>()> factory;
 };
+#endif //AUTOLABA_TYPEREGISTRY_H
