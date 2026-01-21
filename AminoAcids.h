@@ -13,6 +13,7 @@ inline std::vector<std::vector<int>> scores;
 inline std::string AllAminoAcids = "CSTAGPDEQNHRKMILVWYF";
 inline int gap = -4;
 
+// разделение хедера таблицы BLOSUM62
 inline std::vector<char> splitToAminoNo1(const std::string& header) {
     std::vector<char> aminos;
     std::stringstream ss(header);
@@ -28,6 +29,7 @@ inline std::vector<char> splitToAminoNo1(const std::string& header) {
     }
     return aminos;
 }
+// разделение строк со значениями сравнения аминокислот
 inline std::vector<int> splitToScoreNo1(const std::string& line) {
     std::vector<int> scores;
     std::stringstream ss(line);
@@ -44,6 +46,7 @@ inline std::vector<int> splitToScoreNo1(const std::string& line) {
     return scores;
 }
 
+// считывание таблицы сравнения аминокислот (таблицы BLOSUM62)
 inline void readCSV() {
     std::ifstream file("BLOSUM62.csv");
     if (!file.is_open()) {
@@ -110,6 +113,7 @@ inline int Score(const std::string& seq1, const std::string& seq2) {
     std::vector<std::vector<int>> dp = DP(seq1, seq2);
     return dp[seq1.size()][seq2.size()];
 }
+
 // вывод таблицы выравнивания последовательностей
 inline void printDP(const std::vector<std::vector<int>>& dp, const std::string& seq1, const std::string& seq2) {
     const int W = 4;
@@ -132,6 +136,8 @@ inline void printDP(const std::vector<std::vector<int>>& dp, const std::string& 
         std::cout << '\n';
     }
 }
+
+// возвращение выравненных последовательностей аминокислот
 inline std::pair<std::string, std::string> traceBack(const std::vector<std::vector<int>>& dp, const std::string& seq1, const std::string& seq2) {
     std::pair<std::string, std::string> equal;
     size_t i = seq1.size();
