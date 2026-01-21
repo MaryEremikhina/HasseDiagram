@@ -9,7 +9,6 @@
 
 #define GLUT_SILENCE_DEPRECATION
 #include <GLFW/glfw3.h>
-
 #include <GLUT/glut.h>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 
@@ -28,6 +27,7 @@ struct DrawVertex {
     float y = 0.0f;
 };
 
+// распределение элементов по уровням 
 inline std::map<int, std::vector<int>> levelIndex(const std::vector<HasseBuilder::Edge> &edges, int n) {
 
     std::vector<std::vector<int>> adj(n);
@@ -57,6 +57,7 @@ inline std::map<int, std::vector<int>> levelIndex(const std::vector<HasseBuilder
     return result;
 }
 
+// расчет значений для смещения по осям и определение радиуса
 inline std::pair<float, float> CountSteps(const std::map<int, std::vector<int>>& levels) {
     const int levelCount = static_cast<int>(levels.size());
     const float yStep = 2.0f / static_cast<float>(levelCount + 1);
@@ -72,6 +73,7 @@ inline std::pair<float, float> CountSteps(const std::map<int, std::vector<int>>&
     return result;
 }
 
+// распределение всех вершин по уровням через структуру DrawVertex
 template <typename T>
 std::vector<DrawVertex> VerticesFromHasse(const std::vector<T>& elements, const std::vector<HasseBuilder::Edge> &edges, ToStringFunc<T> toString = nullptr) {
     std::vector<DrawVertex> vertices;
@@ -115,12 +117,15 @@ inline void drawText(float x, float y, const char* text) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
     }
 }
+
+// получение ширины текста для отцентровки текста
 inline int getTextWidth(const char* text, void* font) {
     int width = 0;
     for (const char* c = text; *c != '\0'; ++c)
         width += glutBitmapWidth(font, *c);
     return width;
 }
+// визуализация текста с условием центровки
 inline void drawTextCentered(float x, float y, const char* text, void* font = GLUT_BITMAP_TIMES_ROMAN_24) {
     int w = getTextWidth(text, font);
     float scaleX = 1.0f / 600.0f;
@@ -130,7 +135,7 @@ inline void drawTextCentered(float x, float y, const char* text, void* font = GL
         glutBitmapCharacter(font, *c);
 }
 
-// Структура для хранения информации о выравнивании
+// структура для хранения информации о выравнивании
 struct AlignmentInfo {
     std::string from;
     std::string to;
@@ -350,7 +355,7 @@ inline int SaveHassePngHidden(const std::vector<DrawVertex>& vertices,
 
 
 
-// Создание смещённых вершин для Bio
+// создание смещённых вершин для Bio
 inline std::vector<DrawVertex> ShiftVerticesForBio(const std::vector<DrawVertex>& vertices) {
     std::vector<DrawVertex> shifted;
     for (const auto& v : vertices) {
